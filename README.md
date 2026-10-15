@@ -1,8 +1,10 @@
-# Guide light
+# Xbox controller config
 
-Browser app that dims, blinks or switches off the Xbox controller's guide-button
-LED. Runs entirely client-side: Rust (compiled to WebAssembly) builds the
-packets, the browser's WebUSB/WebHID does the I/O, nginx only serves files.
+I found some apps to run locally but it is anoying having to install it. So decide to vibe code this browser app that dims, blinks or switches off the Xbox controller's guide-button
+LED. 
+
+Runs entirely client-side: Rust (compiled to WebAssembly) builds the
+packets, the browser's WebUSB/WebHID does the I/O.
 
 ## What works
 
@@ -45,3 +47,7 @@ nginx. Coolify's HTTPS domain satisfies the secure-origin requirement.
 ```sh
 docker build -t xbox-guide-light . && docker run -p 8089:80 xbox-guide-light
 ```
+
+## License
+
+[MIT](LICENSE). Protocol details come from [SDL](https://github.com/libsdl-org/SDL) (zlib) and [xone](https://github.com/medusalix/xone) (GPL-2.0); no code from either is copied, only the packet formats. Text morphing uses [torph](https://github.com/lochie/torph) (MIT).
