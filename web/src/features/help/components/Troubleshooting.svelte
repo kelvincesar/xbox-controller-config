@@ -46,8 +46,11 @@ echo -n 1-4:1.0 | sudo tee /sys/bus/usb/drivers/xpad/unbind</code
   <details>
     <summary>macOS</summary>
     <p>
-      Usually works straight away. If Chrome reports the controller is in use,
-      quit Steam and any game that has it open, replug the cable and try again.
+      macOS has its own Xbox controller driver (<code>XboxUSBDevice</code>),
+      which takes the controller exclusively as soon as it’s plugged in. The
+      browser can’t override it, and the driver sets the light back to normal on
+      every connection, so this page can’t change the light on a Mac. Use a
+      Linux computer instead.
     </p>
   </details>
 

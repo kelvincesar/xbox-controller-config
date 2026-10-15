@@ -14,6 +14,8 @@ packets, the browser's WebUSB/WebHID does the I/O.
 | Bluetooth (WebHID) | No | Controller only accepts rumble (report `0x03`) over Bluetooth; app shows battery + rumble test |
 | Web Bluetooth | No | Chrome blocklists the HID service (`0x1812`) |
 
+On **macOS** the system driver `XboxUSBDevice` claims the controller exclusively, so WebUSB can't open it there. Linux works (after unbinding `xpad`).
+
 Protocol sources: SDL `src/joystick/hidapi/SDL_hidapi_xboxone.c`, medusalix/xone
 `bus/protocol.c` + `driver/common.c`, atar-axis/xpadneo (Bluetooth).
 
