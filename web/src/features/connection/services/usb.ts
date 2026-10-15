@@ -1,3 +1,5 @@
+import { errorMessage } from '@/lib/errors';
+
 // WebUSB I/O for a wired controller. The controller's GIP interface is
 // vendor-specific (class 0xFF, subclass 0x47, protocol 0xD0), which is why
 // WebUSB can reach it at all: HID-class devices are off limits to WebUSB.
@@ -95,10 +97,11 @@ export async function openUsbController(
 
   try {
     await device.claimInterface(endpoints.interfaceNumber);
-  } catch {
+  } catch (error) {
     await device.close().catch(() => {});
+    // Keep the browser's own wording: it tells which OS-level owner is in the way.
     throw new Error(
-      'Your operating system is already using this controller. Follow “Can’t connect?” below to release it, then try again.',
+      `Your operating system is already using this controller. Follow “Can’t connect?” below to release it, then try again. (Browser said: ${errorMessage(error)})`,
     );
   }
 
