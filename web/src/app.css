@@ -1,0 +1,153 @@
+/* Palette taken from the controller itself: Robot White shell, Carbon Black
+   graphite, Shock Blue accent. */
+:root {
+  --shell: #e8e9e4;
+  --panel: #f5f5f1;
+  --well: #dcded8;
+  --bezel: #d3d5ce;
+  --ink: #24272c;
+  --ink-soft: #565b62;
+  --line: #c4c7c0;
+  --accent: #2c5ba6;
+  --danger: #a33d2a;
+
+  color-scheme: light;
+  font-family:
+    'Archivo Variable',
+    'Archivo',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  font-size: 100%;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--shell);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shell: #1b1d20;
+    --panel: #24272b;
+    --well: #141618;
+    --bezel: #2c2f34;
+    --ink: #e6e7e2;
+    --ink-soft: #a4a9af;
+    --line: #3a3e44;
+    --accent: #85a9e6;
+    --danger: #ef8a72;
+
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding-inline: max(1.25rem, env(safe-area-inset-left, 0px))
+    max(1.25rem, env(safe-area-inset-right, 0px));
+  background: var(--shell);
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+}
+
+code {
+  font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+  font-size: 0.9em;
+}
+
+button {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.7rem 1.15rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background-color 120ms,
+    color 120ms,
+    transform 80ms;
+}
+
+button:hover:not(:disabled) {
+  background: var(--panel);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+button.primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 88%, black);
+}
+
+@media (prefers-color-scheme: dark) {
+  button.primary {
+    color: #10141b;
+  }
+  button.primary:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--accent) 88%, white);
+  }
+}
+
+button.quiet {
+  border-color: var(--line);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
+
+/* Shared section text */
+h2,
+legend {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0.75rem 0 0;
+  max-width: 52ch;
+  font-size: 0.925rem;
+  color: var(--ink-soft);
+}
+
+.error {
+  margin: 0.75rem 0 0;
+  color: var(--danger);
+  font-weight: 500;
+}
