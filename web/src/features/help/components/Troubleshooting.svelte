@@ -23,28 +23,23 @@ sudo udevadm control --reload-rules && sudo udevadm trigger</code
 echo -n 1-4:1.0 | sudo tee /sys/bus/usb/drivers/xpad/unbind</code
       ></pre>
     <p>
-      The controller stops working as a gamepad until you unplug and replug it,
-      which also hands it back to <code>xpad</code>.
+      Connect here and set the light. Then hand the controller back to
+      <code>xpad</code> without unplugging it, so the setting stays:
     </p>
+    <pre><code>echo -n 1-4:1.0 | sudo tee /sys/bus/usb/drivers/xpad/bind</code
+      ></pre>
+    <p>Unplugging the cable resets the light to its normal glow.</p>
   </details>
 
   <details>
     <summary>Windows</summary>
     <p>
       Windows’ own Xbox driver holds the controller, so the browser can’t open
-      it. Microsoft’s free
-      <a
-        href="https://apps.microsoft.com/detail/9nblggh30xj3"
-        rel="noreferrer"
-        target="_blank">Xbox Accessories</a
-      >
-      app changes the same light setting without any driver changes.
-    </p>
-    <p>
-      To use this page instead, swap the controller’s driver to WinUSB with
+      it. The only way around that is swapping the driver to WinUSB with
       <a href="https://zadig.akeo.ie/" rel="noreferrer" target="_blank">Zadig</a
-      >. While WinUSB is installed the controller doesn’t work in games; roll
-      back the driver in Device Manager to undo it.
+      >. While WinUSB is installed the controller doesn’t work in games, and
+      rolling the driver back in Device Manager restarts the controller, which
+      resets the light. In practice this page is most useful on Linux and macOS.
     </p>
   </details>
 
@@ -81,7 +76,7 @@ echo -n 1-4:1.0 | sudo tee /sys/bus/usb/drivers/xpad/unbind</code
 
   details {
     border-top: 1px solid var(--line);
-    padding: 0.75rem 0;
+    padding: 0.25rem 0;
   }
 
   details:last-of-type {
