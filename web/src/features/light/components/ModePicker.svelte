@@ -29,15 +29,30 @@
 
   .mode {
     position: relative;
-    padding: 0.5rem 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.95rem;
     border: 1px solid var(--line);
     border-radius: 999px;
     cursor: pointer;
     background: var(--panel);
+    -webkit-tap-highlight-color: transparent;
     transition:
-      border-color 120ms,
-      background-color 120ms,
-      color 120ms;
+      border-color 150ms ease,
+      background-color 150ms ease,
+      color 150ms ease,
+      transform 160ms var(--ease-out);
+  }
+
+  .mode:active {
+    transform: scale(0.96);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .mode:hover:not(.selected) {
+      border-color: var(--ink-soft);
+    }
   }
 
   .mode input {
@@ -50,6 +65,12 @@
     border-color: var(--ink);
     background: var(--ink);
     color: var(--shell);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mode {
+      transition: none;
+    }
   }
 
   .mode:has(input:focus-visible) {

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { TextMorph } from 'torph/svelte';
+
   import { useLightOptions } from '../hooks/useLightOptions';
   import { previewLevel } from '../logic/light';
   import { useLightStore } from '../store/useLightStore.svelte';
@@ -23,6 +25,12 @@
 
 <figure class="guide" aria-label="Preview: {caption}">
   <div class="button" style:--level={level}>
+    <!-- One pulse per command sent, as confirmation it left the browser. -->
+    {#key light.sent}
+      {#if light.sent}
+        <span class="pulse" aria-hidden="true"></span>
+      {/if}
+    {/key}
     <div class="light {option?.key ?? 'steady'}">
       <svg viewBox="0 0 100 100" aria-hidden="true">
         <circle class="ring" cx="50" cy="50" r="34" />
@@ -30,7 +38,7 @@
       </svg>
     </div>
   </div>
-  <figcaption>{caption}</figcaption>
+  <figcaption><TextMorph text={caption} /></figcaption>
 </figure>
 
 <style>
@@ -54,6 +62,40 @@
       0 0 0 0.55rem var(--bezel);
     display: grid;
     place-items: center;
+    position: relative;
+  }
+
+  .pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.2rem var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    animation: pulse 520ms var(--ease-out);
+  }
+
+  @keyframes pulse {
+    from {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(1.16);
+    }
+  }
+
+  /* The light "powers on" once when the page opens. */
+  svg {
+    animation: power-on 600ms var(--ease-out) 150ms both;
+  }
+
+  @keyframes power-on {
+    from {
+      opacity: 0;
+      transform: scale(0.94);
+    }
   }
 
   .light {
@@ -87,8 +129,8 @@
   .ring,
   .core {
     transition:
-      opacity 180ms ease-out,
-      filter 180ms ease-out;
+      opacity 180ms var(--ease-out),
+      filter 180ms var(--ease-out);
   }
 
   /* Approximations of the controller's patterns. */
@@ -124,8 +166,19 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .light {
+    .light,
+    svg {
       animation: none;
+    }
+
+    .light,
+    .ring,
+    .core {
+      transition: none;
+    }
+
+    .pulse {
+      display: none;
     }
   }
 
